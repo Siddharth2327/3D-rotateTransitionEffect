@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>can 3d rotate</title>
+</head>
+<style>
+    html::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+      html{
+        overflow: hidden;
+      }
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+    .layer{
+        height: 110vh;
+        width: 100vw;
+        background-color: rgb(236, 194, 116);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        transition: transform 1.2s cubic-bezier(0.71, 0, 0.38, 1);
+    }
+    
+    #layer-1{
+        background: rgb(255, 239, 219);
+        z-index: 1;
+    }
+
+    #layer-2{
+        background: rgb(229, 254, 193);
+        z-index: 2;
+    }
+    
+    .can-container{
+        width: 200px;
+        position: relative;
+        overflow: hidden; 
+        /*adjustment for the label button*/
+        margin-top: 75px;
+    }
+    
+    .can-img{
+        width: 100%;
+    }
+    
+    .wrapper{
+        position: absolute;
+        height: 85%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-51%);
+        mix-blend-mode: multiply; 
+        /* this is used to blend the contents with the parent element */
+        transition: 1.2s cubic-bezier(0.71, 0, 0.38, 1);
+    }
+    
+    .text{
+        font-family: poppins;
+        font-size: 175px;
+        font-weight: 500;
+        color: orange;
+        position: absolute;
+        transition: 1.2s cubic-bezier(0.71, 0, 0.38, 1);
+    }
+    
+    #layer-2 .text{
+        color: rgb(145, 227, 29);
+    }
+    
+    .fruits{
+        position: absolute;
+        transition: cubic-bezier(0.71, 0, 0.38, 1) 1.2s;
+    }
+    
+    .fruits img{
+        position: absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%,-50%); 
+        transition: cubic-bezier(0.71, 0, 0.38, 1) 1.2s;
+    }
+    
+    #o1{
+        width: 125px;
+        transform: translate(-270px,-150px);
+    }
+    
+    #o2{
+        width: 170px;   
+        transform: translate(235px, -40px);
+    }
+    
+    #o3{
+        width: 220px;
+        transform: translate(-295px, 50px);
+    }
+    
+    #p1{
+        width: 125px;
+        transform: translate(140px, 70px);
+    }
+    
+    #p2{
+        width: 180px;   
+        transform: translate(-250px, -10px);
+    }
+    
+    #p3{
+        width: 250px;
+        transform: translate(105px, -255px);
+    }
+
+    .layer label{
+        display: block;
+        font-family: poppins;
+        box-sizing: border-box;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 0.5mm solid black;
+        border-radius: 10mm;
+        cursor: pointer;
+        margin-top: 50px;
+    }
+
+    #toggle{
+        display: none;
+    }
+
+    /* layer-1 transition effect */
+    #toggle:not(:checked) ~ #layer-1 .can-container .wrapper {
+        left: 150%;
+    }
+    
+    #toggle:not(:checked) ~ #layer-1 .text {
+        translate: -150% 0;
+    }
+    
+    #toggle:not(:checked) ~ #layer-1 .fruits {
+        translate: -125vw 0;
+    }
+    
+    #toggle:not(:checked) ~ #layer-1 .fruits img {
+       translate: -100% 0;
+    }
+
+    /* layer-2 transition effect */
+    #toggle:checked ~ #layer-2 .can-container .wrapper{
+        left:-50%
+    }
+    
+    #toggle:checked ~ #layer-2 .text{
+        translate: 150% 0;
+    }
+    
+    #toggle:checked ~ #layer-2 .fruits{
+        translate: 125vw 0;
+    }
+    
+    #toggle:checked ~ #layer-2 .fruits img{
+        translate: -100% 0;
+    }
+    
+    /* Fix for the layer positioning */
+    #toggle:not(:checked) ~ #layer-2 {
+        transform: translateX(0);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    #toggle:not(:checked) ~ #layer-1 {
+        transform: translateX(100%);
+    }
+
+    #toggle:checked ~ #layer-2 {
+        transform: translateX(-100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    #toggle:checked ~ #layer-1 {
+        transform: translateX(0);
+    }
+</style>
+<body>
+
+    <input type="checkbox" id="toggle" />
+
+        <!-- Layer1 -->
+        <div class="layer" id="layer-1">
+            <div class="text">Orange</div>
+            <div class="can-container">
+                <img src="./images/can 2.png" class="can-img" alt="Can image">
+                <img src="./images/Contents.png" class="wrapper" alt="wrapper">
+            </div>
+            <div class="fruits">
+                <img src="./images/orange-3.png" alt=""  id="o1">
+                <img src="./images/orange-2.png" alt=""  id="o2">
+                <img src="./images/orange-1.png" alt=""  id="o3">
+            </div>
+            <label for="toggle">Click to Slide</label>
+        </div>
+
+        <!-- Layer-2 -->
+        <div class="layer" id="layer-2">
+            <div class="text">PineApple</div>
+            <div class="can-container">
+                <img src="./images/can 2.png" class="can-img" alt="Can image">
+                <img src="./images/Contents-2.png" class="wrapper" alt="wrapper">
+            </div>
+            <div class="fruits">
+                <img src="./images/pineapple-3.png" alt=""  id="p1">
+                <img src="./images/pineapple-2.png" alt=""  id="p2">
+                <img src="./images/pineapple-1.png" alt=""  id="p3">
+            </div>
+            <label for="toggle">Click to Slide</label>
+        </div>
+
+</body>
+</html>
